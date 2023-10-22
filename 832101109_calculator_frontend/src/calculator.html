@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Calculator</title>
+    <style>
+        body {
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .calculator {
+            border: solid 4px;
+            border-radius: 10px;
+            width: 500px;
+            height: 560px;
+            text-align: center;
+            background-color: floralwhite;
+            padding: 20px;
+        }
+
+
+
+        .calculator .c-title {
+            font-size: 28px;
+            color: rgb(0, 0, 0);
+            float: right;
+            text-align: left; /* Center the text horizontally */
+            margin-top: 9px;
+            margin-right: 140px;
+            font-weight: bold; /* Make the text bold */
+        }
+
+        .calculator .result {
+            margin-top: 50px;
+            margin-left: 10px;
+            width: 480px;
+            height: 100px;
+
+            text-align: right;
+            background-color: white;
+            border: solid 1px rgb(34, 34, 34);
+            font-size: 30px;
+
+        }
+
+        .calculator #result1 {
+            font-size: 30px;
+            height: 50px;
+            background-color: white;
+            font-weight: bold; /* Make the text bold */
+            text-align: right;
+        }
+
+        .calculator #result2 {
+            font-size: 30px;
+            height: 50px;
+            text-align: right;
+            font-weight: bold; /* Make the text bold */
+            background-color: white;
+        }
+
+        .button {
+            width: 480px;
+            overflow: hidden;
+            clear: both;
+            border-radius: 0px 0px 10px 10px;
+            position: relative;
+            left: 5px;
+            display: flex;
+            flex-wrap: wrap; /* Enable wrapping of buttons to the next row */
+        }
+
+        /* 设置按钮的样式 */
+        .button div {
+            width: 60px; /* Adjust the width for 6 buttons per row */
+            height: 60px; /* Keep the button height */
+            margin: 10px; /* Keep the button margin */
+            font-size: 30px;
+            font-weight: bold;
+            font-family: "Times New Roman";
+            text-align: center;
+            line-height: 60px; /* Center the text vertically */
+            border-radius: 15px;
+            box-shadow: 3px 3px 5px rgb(0, 0, 0);
+            background-color: #f2f3f7;
+            display: flex; /* Center the text vertically and horizontally */
+            justify-content: center; /* Center the text horizontally */
+        }
+
+        /* 设置特殊按钮的样式 */
+         #double0 {
+            width: 60px; /* 修改双宽按钮宽度为 105px */
+            font-size: 30px; /* 修改双宽按钮字体大小为 24px */
+            background-color: #f2f3f7;
+        }
+
+        #readhistory {
+            width: 60px; /* 修改Ans按钮宽度为 50px */
+            height: 60px; /* 修改Ans按钮高度为 50px */
+            margin: 10px; /* 修改Ans按钮间距为 5px */
+            font-size: 30px; /* 修改Ans按钮字体大小为 24px */
+            font-weight: bold; /* Make the text bold */
+            font-family: "Times New Roman"; /* 使用字体 */
+            text-align: center;
+            background-color: #f2f3f7;
+        }
+
+        #save {
+            width: 135px; /* 修改=按钮宽度为 50px */
+            height: 60px; /* 修改=按钮高度为 50px */
+            margin: 10px; /* 修改=按钮间距为 5px */
+            font-size: 30px; /* 修改=按钮字体大小为 24px */
+            font-weight: bold; /* Make the text bold */
+            font-family: "Times New Roman"; /* 使用字体 */
+            line-height: 60px; /* Center the text vertically */
+            text-align: center;
+            box-shadow: 3px 3px 5px rgb(0, 0, 0);
+            background-color: #f2f3f7;
+        }
+
+        .history-list {
+            width: 200px;
+            height: 605px;
+            background-color: #f2f3f7;
+            border-radius: 0 0 0 15px;
+            overflow-y: scroll;
+        }
+
+        .history-list div {
+            height: 60px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold; /* Add this property to make the font bold */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #tip {
+            text-align: center;
+            border: solid 3px black;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 45px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="calculator">
+        <div class="top">
+            <div class="c-title">Web Calculator</div>
+        </div>
+        <div class="result" name="result">
+            <div id="result1"></div>
+            <div id="result2"></div>
+        </div>
+        <div class="button">
+
+
+            <div onclick="input(7)">7</div>
+            <div onclick="input(8)">8</div>
+            <div onclick="input(9)">9</div>
+            <div onclick="del()">del</div>
+            <div id="readhistory">Ans</div>
+            <div onclick="clear1()">AC</div>
+            <div onclick="input(4)">4</div>
+            <div onclick="input(5)">5</div>
+            <div onclick="input(6)">6</div>
+            <div onclick="input('^')">^</div>
+            <div onclick="input('/')">÷</div>
+            <div onclick="input('%')">%</div>
+            <div onclick="input(1)">1</div>
+            <div onclick="input(2)">2</div>
+            <div onclick="input(3)">3</div>
+            <div onclick="input('+')">+</div>
+            <div onclick="input('-')">-</div>
+            <div onclick="input('*')">*</div>
+            <div onclick="input('(')">(</div>
+            <div onclick="input(0)">0</div>
+            <div onclick="input(')')">)</div>
+            <div onclick="input('sin(')">sin</div>
+            <div onclick="input('cos(')">cos</div>
+            <div onclick="input('tan(')">tan</div>
+            <div onclick="input('e')">e</div>
+            <div onclick="input('π')">π</div>
+            <div onclick="input('.')">.</div>
+            <div id="double0" onclick="input('00')">00</div>
+            <botton id="save">=</botton>
+        </div>
+    </div>
+    <div class="history-list">
+        <div id="tip">History</div>
+        <div id="hist1"></div>
+        <div id="hist2"></div>
+        <div id="hist3"></div>
+    <div id="hist4"></div>
+    <div id="hist5"></div>
+    <div id="hist6"></div>
+    <div id="hist7"></div>
+    <div id="hist8"></div>
+    <div id="hist9"></div>
+    <div id="hist10"></div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    //记录最终结果
+    var finalResult = 0;
+
+    //  数字与运算符输入处理函数
+    function input(number) {
+
+        var result = document.getElementById("result1");//获取标签
+        if (number=== 'e') {
+            result.innerHTML += Math.E; // Add the value of "e"
+        } else if (number === 'π') {
+            result.innerHTML += Math.PI; // Add the value of "π"
+        } else {
+            result.innerHTML += number; // For other values
+        }
+    }
+
+    document.getElementById('readhistory').onclick = function () {
+
+
+        var Ans = document.getElementById("result2");
+        var result = document.getElementById("result1");
+        var contentAsString = String(Ans.textContent);
+        result.innerHTML = Ans.innerHTML;
+        var xhr = new XMLHttpRequest();
+
+        // 配置请求，使用GET请求方式，请求的URL为后端PHP文件的路径
+        xhr.open("GET", "get_history.php", true);
+        //发送请求
+        xhr.send();
+        // 设置回调函数，处理响应
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // 如果请求成功完成，处理后端返回的JSON数据
+                var response = JSON.parse(xhr.responseText);
+
+                for (var i = 0; i < response.length; i++) {
+                    var recordId = "hist" + (i + 1);
+                    var recordDiv = document.getElementById(recordId);
+                    recordDiv.innerHTML = response[i];
+                }
+            }
+        };
+
+    }
+
+
+    function calculateExpression(expression) {
+        let index = 0;
+
+        function throwError(message) {
+            throw new Error(message);
+        }
+
+
+        function parseNumber() {
+            let start = index;
+            if (expression[index] === '-') {
+                index++;
+            }
+            while (/\d|\./.test(expression[index])) {
+                index++;
+            }
+            return parseFloat(expression.slice(start, index));
+        }
+        function parseExponent() {
+            let leftOperand = parseFactor();
+            while (expression[index] === '^') {
+                index++;
+                let rightOperand = parseExponent();
+                leftOperand = Math.pow(leftOperand, rightOperand);
+            }
+            return leftOperand;
+        }
+        function parseTerm() {
+            let leftOperand = parseExponent();
+            while (expression[index] === '*' || expression[index] === '/' || expression[index] === '%') {
+                let operator = expression[index];
+                index++;
+                let rightOperand = parseFactor();
+                if (operator === '*') {
+                    leftOperand *= rightOperand;
+                } else if (operator === '/') {
+                    if (rightOperand === 0) {
+                        throwError("除数不能为0");
+                    }
+                    leftOperand /= rightOperand;
+                } else if (operator === '%') {
+                    if (rightOperand === 0) {
+                        throwError("除数不能为0");
+                    }
+                    leftOperand %= rightOperand;
+                }
+            }
+            return leftOperand;
+        }
+
+        function parseFactor() {
+            if (expression[index] === '(') {
+                index++;
+                let value = parseExpression();
+                if (expression[index] === ')') {
+                    index++;
+                } else {
+                    throwError("Invalid expression");
+                }
+                return value;
+            }
+            return parseNumber();
+        }
+
+        function parseExpression() {
+            let leftOperand = parseTerm();
+            while (expression[index] === '+' || expression[index] === '-') {
+                let operator = expression[index];
+                index++;
+                let rightOperand = parseTerm();
+                if (operator === '+') {
+                    leftOperand += rightOperand;
+                } else if (operator === '-') {
+                    leftOperand -= rightOperand;
+                }
+            }
+            return leftOperand;
+        }
+
+        try {
+            let result = parseExpression();
+            if (index !== expression.length) {
+                throwError("Invalid expression");
+            }
+            return result;
+        } catch (error) {
+            return error.message;
+        }
+    }
+
+
+    document.getElementById('save').onclick = function () {
+        var result = document.getElementById("result1");//获取输入栏标签
+        var result1 = document.getElementById("result2");//获取输出栏标签
+
+
+        finalResult = calculateExpression(result.innerHTML);
+        //将结果显示
+        result1.innerHTML = finalResult;
+
+        var str1 = document.getElementById('result1').innerHTML;
+        var str2 = document.getElementById('result2').innerHTML;
+
+        var xhr = new XMLHttpRequest();
+        var url = `save_result.php?result1=${str1}&result2=${str2}`;
+        xhr.open('get', url, true)
+
+        xhr.send()
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log(xhr.response);
+                }
+            }
+        }
+
+
+        result.innerHTML = "";
+
+    }
+
+    //计算结果函数
+    function res() {
+        var result = document.getElementById("result1");//获取输入栏标签
+        var result1 = document.getElementById("result2");//获取输出栏标签
+        console.log(typeof result.innerHTML)
+
+        finalResult = calculateExpression(result.innerHTML);
+        //将结果显示
+
+        result1.innerHTML = finalResult;
+        result.innerHTML = "";
+    }
+
+    //删除一位处理函数
+    function del() {
+        var result = document.getElementById("result1");//获取标签
+        var len = result.innerHTML.length;//获取输入栏输入的长度
+        result.innerHTML = result.innerHTML.substr(0, len - 1);//使用substr截取掉一位再保存
+
+    }
+
+    // 清除全部内容
+    function clear1() {
+        var result = document.getElementById("result1");//获取标签
+        result.innerHTML = "";//输入显示栏设置为空值
+        var result1 = document.getElementById("result2");//获取标签
+        result1.innerHTML = "";//输出显示栏设置为空值
+        for (var i = 0; i < 10; i++) {
+            var hist = "hist" + (i + 1);
+            var hist_clear = document.getElementById(hist);
+            hist_clear.innerHTML = "";
+        }
+    }
+
+</script>
+</body>
+</html>
